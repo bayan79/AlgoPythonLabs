@@ -8,11 +8,13 @@ description_list = [
     ['Simon', 'Simonov', 25, "88005553456"],
 ]
 
-oldest = sorted([man for man in description_list], key=lambda x: x[2])[-1]
-print('Oldest:', dict(zip(fields, oldest)))
-
 # 2) Описание словарем и выбор младшего
-description_dict = {man[3]: dict(zip(fields[:-1], man[:-1])) for man in description_list}
+description_dict = {man[3]: dict(zip(fields, man)) for man in description_list}
 
-youngest_key, _  = sorted(description_dict.items(), key=lambda x: x[1]['age'])[0]
-print('Youngest:', {**description_dict[youngest_key], 'phone':youngest_key}) 
+
+if __name__ == '__main__':
+    oldest = sorted([man for man in description_list], key=lambda x: x[2])[-1]
+    print('Oldest:', dict(zip(fields, oldest)))
+
+    youngest_key, _  = sorted(description_dict.items(), key=lambda x: x[1]['age'])[0]
+    print('Youngest:', description_dict[youngest_key]) 
