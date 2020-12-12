@@ -5,13 +5,15 @@
 3) лист с уникальными элементами
 """
 
+
 class MyInt(int):
     def __add__(self, num):
-        return 1 + self + num 
+        return 1 + self + num
+
 
 class MyList(list):
     def __init__(self, *args, **kwargs):
-        self.MAX_SIZE = kwargs.pop("max_size", 0) 
+        self.MAX_SIZE = kwargs.pop("max_size", 0)
         super().__init__(*args, **kwargs)
         if self.MAX_SIZE:
             del self[self.MAX_SIZE:]
@@ -25,11 +27,12 @@ class MyList(list):
         attribute = super().__getattribute__(attr)
         if attr in ('MAX_SIZE') or not self.MAX_SIZE:
             return attribute
-        
+
         # если встроенная функция и длина больше заданной
-        # то заменяем функцию-аттрибут новой, где после выполнения 
-        # исходной функции удаляется лишняя часть списка 
-        if isinstance(attribute, type([].append)) and len(self) >= self.MAX_SIZE:
+        # то заменяем функцию-аттрибут новой, где после выполнения
+        # исходной функции удаляется лишняя часть списка
+        if isinstance(attribute, type([].append)) and len(
+                self) >= self.MAX_SIZE:
             def new_function(*args, **kwargs):
                 result = attribute(*args, **kwargs)
                 del self[self.MAX_SIZE:]
@@ -37,6 +40,7 @@ class MyList(list):
             return new_function
         else:
             return attribute
+
 
 class MySetList(list):
     def __init__(self, *args, **kwargs):
@@ -50,8 +54,8 @@ class MySetList(list):
         attribute = super().__getattribute__(attr)
 
         # если встроенная функция и длина больше заданной
-        # то заменяем функцию-аттрибут новой, где после выполнения 
-        # исходной функции удаляется лишняя часть списка 
+        # то заменяем функцию-аттрибут новой, где после выполнения
+        # исходной функции удаляется лишняя часть списка
         if isinstance(attribute, type([].append)) and len(self):
             def new_function(*args, **kwargs):
                 result = attribute(*args, **kwargs)
@@ -70,14 +74,14 @@ if __name__ == "__main__":
     print(f"{a} + {b} = {a+b}")
 
     print('\n====== MY LIST with capacity ========')
-    my_list = MyList(max_size=10)  
+    my_list = MyList(max_size=10)
     for i in range(15):
         my_list.append(f'app{i}')
         my_list.extend([f'ext{i}'])
         my_list.insert(1, f'i{i}')
         print(my_list)
     print('\n======== MY SET LIST ========')
-    my_set_list = MySetList([1,2,3,3,4,5])
+    my_set_list = MySetList([1, 2, 3, 3, 4, 5])
     for i in range(10):
         print(f'before append {i}: ', my_set_list)
         my_set_list.append(i)

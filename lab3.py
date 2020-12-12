@@ -6,6 +6,7 @@ ACCURACY = 0.7
 # set of tuple(question: str, answer: str)
 answers = set()
 
+
 def get_answer(question: str):
     if question:
         if question == 'exit':
@@ -19,6 +20,7 @@ def get_answer(question: str):
     answer = "да" if hash(question) % 2 else "нет"
     answers.add((question, answer))
     return answer
+
 
 while True:
     print(get_answer(input("Your question: ")))

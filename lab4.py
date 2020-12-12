@@ -3,16 +3,16 @@
 
 Предметная область: мальчик Борис в подвале магазина спорт товаров
 ходит и пытается угадать, какой мяч из кучи мячей для какой игры нужен
-в зависимости от цвета и размера. Но мальчик не тупой, если 
-один раз ответил не правильно то записывает в свою книжечку 
-правильный ответ, и в следующий раз, встретив похожий мяч, 
+в зависимости от цвета и размера. Но мальчик не тупой, если
+один раз ответил не правильно то записывает в свою книжечку
+правильный ответ, и в следующий раз, встретив похожий мяч,
 назовет его. Если угадал, то не записывает и забывает (не тупой, но и не умный)
 
 Класс Ball уже реализован, но его необходимо доработать до GameBall
 
-Класс Boy нужно реализовать чтобы можно было создать Борю, 
-делать отдельный класс для Бори не универсально, а взрослые 
-умеют запоминать вещи в уме, поэтому расширять класс до Person 
+Класс Boy нужно реализовать чтобы можно было создать Борю,
+делать отдельный класс для Бори не универсально, а взрослые
+умеют запоминать вещи в уме, поэтому расширять класс до Person
 тоже не нужно для задачи
 
 Класс Book реализуем для разделения мальчика и книги, потому что
@@ -26,7 +26,7 @@ from lab2 import Ball, fuzzy_compare_int, fuzzy_compare_string
 
 
 class GameBall(Ball):
-    def __init__(self, size: int, color:str, game:str):
+    def __init__(self, size: int, color: str, game: str):
         super(GameBall, self).__init__(size, color)
         self.game = game
 
@@ -35,7 +35,7 @@ class GameBall(Ball):
 
     def fuzzy_compare(self, ball):
         game_result = fuzzy_compare_string(self.game, ball.game)
-        return  super(GameBall, self).fuzzy_compare(ball) * game_result
+        return super(GameBall, self).fuzzy_compare(ball) * game_result
 
     def json_string(self):
         fields = ['size', 'color', 'game']
@@ -50,7 +50,13 @@ class GameBall(Ball):
     def random_ball():
         colors = ['green', 'red', 'blue', 'orange', 'white', 'yellow']
         games = ['baseball', 'soccer', 'tennis', 'ping-pong', 'polo']
-        return GameBall(random.randint(1,20), random.choice(colors), random.choice(games))
+        return GameBall(
+            random.randint(
+                1,
+                20),
+            random.choice(colors),
+            random.choice(games))
+
 
 class Book:
     def __init__(self):
@@ -62,8 +68,10 @@ class Book:
     def write(self, string: str):
         self.__data.append(string)
 
+
 class Boy:
     ACCURACY = 0.7
+
     def __init__(self, name: str):
         self.book = Book()
         self.name = name
@@ -98,4 +106,3 @@ if __name__ == "__main__":
         boris.detect_ball(ball)
 
     print("Balls in Boris's book: ", len(boris.book.read()))
-        

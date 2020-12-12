@@ -16,5 +16,6 @@ if __name__ == '__main__':
     oldest = sorted([man for man in description_list], key=lambda x: x[2])[-1]
     print('Oldest:', dict(zip(fields, oldest)))
 
-    youngest_key, _  = sorted(description_dict.items(), key=lambda x: x[1]['age'])[0]
-    print('Youngest:', description_dict[youngest_key]) 
+    youngest_key, _ = sorted(description_dict.items(),
+                             key=lambda x: x[1]['age'])[0]
+    print('Youngest:', description_dict[youngest_key])
