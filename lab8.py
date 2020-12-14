@@ -16,7 +16,7 @@ def get_estimate_function(field, searched_value):
     elif isinstance(searched_value, int):
         compare = fuzzy_compare_int
     else:
-        raise Exception(f'Uncomparable: {field}, {searched_value}')
+        raise Exception(f'Unable to estimate value: {searched_value}[field: {field}]')
 
     def _estimate(item):
         return compare(item[field], searched_value)
